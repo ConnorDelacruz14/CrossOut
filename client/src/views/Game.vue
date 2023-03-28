@@ -1,7 +1,9 @@
 <template>
   <Titleheader />
-  <PrimaryScreen />
-  <SecondaryScreen />
+  <div id="game-screen">
+    <PrimaryScreen />
+    <SecondaryScreen />
+  </div>
 </template>
 
 <script>
@@ -16,4 +18,10 @@ export default {
 </script>
 
 <style>
+  #game-screen {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    min-height: 0;
+  }
 </style>
