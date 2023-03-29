@@ -15,7 +15,7 @@ export default {
     components: {OtherPlayer},
     data() {
         return {
-            players: ["Test Player 1", "Test Player 2", "Test Player 3"],
+            players: ["Player 2", "Player 3", "Player 4"],
         }
     },
 }

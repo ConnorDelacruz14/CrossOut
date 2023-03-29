@@ -22,8 +22,8 @@ export default {
     data() {
         return {
             name: "You",
-            score: 24,
-            definitions: ["Short story with animals", 
+            score: 0,
+            definitions: /* ["Short story with animals", 
                           "Winged creature",
                           "Opposite of disable",
                           "Type of monkey",
@@ -31,7 +31,7 @@ export default {
                           "Turn around this point",
                           "_ _ _ something, anything!",
                           "Crochet with this material",
-                        ],
+                        ], */ []
         }
     }, 
 }
