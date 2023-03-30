@@ -1,6 +1,6 @@
 <template>
     <div id="primary-screen"> 
-        <div id="game"></div>
+        <div id="board"></div>
         <div id="info-container">
             <div class="player-container">
                 <div class="player-name player-item">{{ name }}</div>
@@ -42,7 +42,7 @@ export default {
         margin: 150px 20px;
     }
 
-    #game {
+    #board {
         width: 650px;
         height: 400px;
         left: 45px;
