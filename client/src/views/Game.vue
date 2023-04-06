@@ -12,6 +12,9 @@
             <span class="dot">.</span> 
           {{ current_players }}/4
         </div>
+        <div v-for="message in messages" :key="message">{{ message }}</div>
+        <input v-model="inputValue" />
+        <button @click="sendMessage">Send</button>
     </div>
 
 </template>
@@ -20,6 +23,7 @@
 import Titleheader from '../components/Titleheader.vue';
 import PrimaryScreen from '../components/PrimaryScreen.vue';
 import SecondaryScreen from '../components/SecondaryScreen.vue';
+import io from "socket.io-client"
 
 export default {
   components: { Titleheader,  PrimaryScreen, SecondaryScreen},
@@ -27,6 +31,31 @@ export default {
     return {
       in_game: false,
       current_players: 0,
+      messages: [],
+      inputValue: "",
+    }
+  },
+  created() {
+    this.socket = io("http://localhost:3000");
+
+    this.socket.on("connect", () => {
+      console.log("connected to server");
+    });
+
+    this.socket.on("disconnect", () => {
+      console.log("disconnected from server");
+    });
+
+    this.socket.on("message", () => {
+      console.log(`received mesage: ${message}`);
+      this.messages.push(message);
+    });
+  },
+  methods: {
+    sendMessage() {
+        console.log(`sending message: ${this.inputValue}`);
+        this.socket.emit("message", this.inputValue);
+        this.inputValue = "";
     }
   }
 }

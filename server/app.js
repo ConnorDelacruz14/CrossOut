@@ -1,30 +1,44 @@
-const express = require("express");
-const cors = require("cors");
-const mongoose = require("mongoose");
-const app = express();
-
-// Add middleware
-app.use(cors());
-app.use(express.json());
-
-// Connect to MongoDB
-// mongoose.connect(process.env.MONGODB_URI, {
-//   useNewUrlParser: true,
-//   useUnifiedTopology: true
-// })
-// .then(() => console.log('Connected to MongoDB'))
-// .catch(err => console.error(err))
-
-// Define routes
-app.get("/", (req, res) => {
-  res.send("Hello, world!");
+var app = require("express");
+var http = require("http").Server(app);
+const io = require("socket.io")(http, {
+  cors: {
+    origin: "*",
+    methods: ["GET", "POST"],
+  },
 });
 
-// Start server
-const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => {
-  console.log(`
-    Server listening on port ${PORT}.
-    GraphQL API ready at http://localhost:${PORT}/graphql
-  `);
+http.listen(3000, () => {
+  console.log("listening on port 3000");
 });
+
+// io.on("connection", (socket) => {
+//   console.log("a player connected!");
+
+// const express = require("express");
+// const cors = require("cors");
+
+// const app = express();
+// app.use(cors());
+
+// const http = require("http");
+// const socketio = require("socket.io");
+
+// const server = http.createServer(app);
+// const io = socketio(server);
+
+// io.on("connection", (socket) => {
+//   console.log("a player connected!");
+
+//   socket.on("disceonnect", () => {
+//     console.log("player disconnected");
+//   });
+
+//   socket.on("message", (message) => {
+//     console.log(`received message: ${message}`);
+//     io.emit("message", message);
+//   });
+// });
+
+// app.listen(3000, () => {
+//   console.log("listening on port 3000");
+// });
