@@ -12,9 +12,6 @@
             <span class="dot">.</span> 
           {{ current_players }}/4
         </div>
-        <div v-for="message in messages" :key="message">{{ message }}</div>
-        <input v-model="inputValue" />
-        <button @click="sendMessage">Send</button>
     </div>
 
 </template>
@@ -24,44 +21,56 @@ import Titleheader from '../components/Titleheader.vue';
 import PrimaryScreen from '../components/PrimaryScreen.vue';
 import SecondaryScreen from '../components/SecondaryScreen.vue';
 import io from "socket.io-client"
+import { v4 as uuidv4 } from 'uuid';
 
 export default {
-  components: { Titleheader,  PrimaryScreen, SecondaryScreen},
+  components: {
+    Titleheader,
+    PrimaryScreen,
+    SecondaryScreen
+  },
   data() {
     return {
       in_game: false,
       current_players: 0,
       messages: [],
       inputValue: "",
-    }
+      playerId: "",
+    };
   },
   created() {
     this.socket = io("http://localhost:3000");
 
     this.socket.on("connect", () => {
       console.log("connected to server");
+      this.playerId = uuidv4();
+      this.socket.emit("connect_player", this.playerId);
     });
 
     this.socket.on("disconnect", () => {
       console.log("disconnected from server");
     });
 
-    this.socket.on("message", () => {
-      console.log(`received mesage: ${message}`);
-      this.messages.push(message);
+    this.socket.on("update_player_count", (players) => {
+      this.current_players = players;
     });
-  },
-  methods: {
-    sendMessage() {
-        console.log(`sending message: ${this.inputValue}`);
-        this.socket.emit("message", this.inputValue);
-        this.inputValue = "";
-    }
+
+    this.socket.on("start_game", () => {
+      this.in_game = true;
+    });
   }
-}
+};
+
 </script>
 
 <style>
+  #game {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+
   #game-screen {
     display: flex;
     flex-direction: row;
