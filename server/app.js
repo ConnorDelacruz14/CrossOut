@@ -1,3 +1,4 @@
+const MAX_PLAYERS = 4;
 let players = {};
 
 var app = require("express");
@@ -23,7 +24,9 @@ io.on("connection", (socket) => {
       console.log(`Player ${playerId} connected`);
       players[playerId] = socket.id;
     }
-    if (Object.keys(players).length === 4) {
+
+    if (Object.keys(players).length === MAX_PLAYERS) {
+      // Begin if lobby is full
       io.emit("start_game");
     }
     io.emit("update_player_count", Object.keys(players).length);
