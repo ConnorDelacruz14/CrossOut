@@ -9,7 +9,7 @@
             <div class="definitions">
                 Definitions:
                 <ol style="margin-top: 0;">
-                    <li v-for="(definition, index) in definitions" v-bind:key="index">{{ definition }}</li>
+                    <li v-for="(definition, index) in words" v-bind:key="index">{{ definition }}</li>
                 </ol>
             </div>
         </div>
@@ -19,19 +19,16 @@
 <script>
 export default {
     components: {},
+    props: {
+        words: {
+            type: Object,
+            required: true
+        }
+    },
     data() {
         return {
             name: "You",
             score: 0,
-            definitions: /* ["Short story with animals", 
-                          "Winged creature",
-                          "Opposite of disable",
-                          "Type of monkey",
-                          "Animal that eats bamboo",
-                          "Turn around this point",
-                          "_ _ _ something, anything!",
-                          "Crochet with this material",
-                        ], */ []
         }
     }, 
 }

@@ -1,6 +1,25 @@
 const MAX_PLAYERS = 4;
 let players = {};
 
+const Board = require("./board");
+const height = 10;
+const width = 10;
+const words = {
+  fable: "Short story with animals",
+  bat: "Winged creature",
+  enable: "Opposite of disable",
+  ape: "Type of monkey",
+  panda: "Animal that eats bamboo",
+  axis: "Turn around this point",
+  say: "_ _ _ something, anything!",
+  yarn: "Crochet with this material",
+};
+
+const gameBoard = new Board(height, width, words);
+gameBoard.FillBoard();
+gameBoard.CreateGameBoard();
+gameBoard.PrintBoard();
+
 var app = require("express");
 var http = require("http").Server(app);
 const io = require("socket.io")(http, {
@@ -27,7 +46,7 @@ io.on("connection", (socket) => {
 
     if (Object.keys(players).length === MAX_PLAYERS) {
       // Begin if lobby is full
-      io.emit("start_game");
+      io.emit("start_game", gameBoard, words);
     }
     io.emit("update_player_count", Object.keys(players).length);
   });

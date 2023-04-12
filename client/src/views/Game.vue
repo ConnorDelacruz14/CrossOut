@@ -2,7 +2,7 @@
   <div id="game">
         <Titleheader />
         <div id="game-screen" v-if="in_game">
-            <PrimaryScreen />
+            <PrimaryScreen :words="words"/>
             <SecondaryScreen />
         </div>
         <div id="loading" v-else>
@@ -33,9 +33,8 @@ export default {
     return {
       in_game: false,
       current_players: 0,
-      messages: [],
-      inputValue: "",
       playerId: "",
+      words: {},
     };
   },
   created() {
@@ -55,10 +54,12 @@ export default {
       this.current_players = players;
     });
 
-    this.socket.on("start_game", () => {
+    this.socket.on("start_game", (board, words) => {
       this.in_game = true;
+      this.words = words;
+      console.log(board);
     });
-  }
+  },
 };
 
 </script>
