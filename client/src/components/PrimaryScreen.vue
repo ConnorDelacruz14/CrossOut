@@ -1,6 +1,6 @@
 <template>
-    <div id="primary-screen"> 
-        <div id="board"></div>
+    <div id="primary-screen">
+        <Board />
         <div id="info-container">
             <div class="player-container">
                 <div class="player-name player-item">{{ name }}</div>
@@ -17,8 +17,9 @@
 </template>
 
 <script>
+import Board from './Board.vue';
 export default {
-    components: {},
+    components: {Board},
     props: {
         words: {
             type: Object,
@@ -30,7 +31,32 @@ export default {
             name: "You",
             score: 0,
         }
-    }, 
+    },
+    mounted() {
+        const canvas = this.$refs.canvas;
+        const context = canvas.getContext('2d');
+
+        // Set up the grid parameters
+        const cellSize = 40; // The size of each grid cell in pixels
+        const numCols = 15; // The number of columns
+        const numRows = 10; // The number of rows
+
+        // Draw the vertical grid lines
+        for (let i = 0; i <= numCols; i++) {
+        context.beginPath();
+        context.moveTo(i * cellSize, 0);
+        context.lineTo(i * cellSize, canvas.height);
+        context.stroke();
+        }
+
+        // Draw the horizontal grid lines
+        for (let i = 0; i <= numRows; i++) {
+        context.beginPath();
+        context.moveTo(0, i * cellSize);
+        context.lineTo(canvas.width, i * cellSize);
+        context.stroke();
+        }
+    }
 }
 </script>
 
@@ -40,7 +66,7 @@ export default {
     }
 
     #board {
-        width: 650px;
+        width: 640px;
         height: 400px;
         left: 45px;
         top: 0px;

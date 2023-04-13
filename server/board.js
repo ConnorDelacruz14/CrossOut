@@ -1,27 +1,3 @@
-const fitsHorizontal = (word, x, y, board) => {
-  if (y + word.length > board.length) {
-    return false;
-  }
-  for (let i = 0; i < word.length; i++) {
-    if (board[x][y + i] !== "▮" && board[x][y + i] !== word[i]) {
-      return false;
-    }
-  }
-  return true;
-};
-
-const fitsVertical = (word, x, y, board) => {
-  if (x + word.length > board.length) {
-    return false;
-  }
-  for (let i = 0; i < word.length; i++) {
-    if (board[x + i][y] !== "▮" && board[x + i][y] !== word[i]) {
-      return false;
-    }
-  }
-  return true;
-};
-
 class Board {
   constructor(height, width, words) {
     this.height = height;
@@ -32,11 +8,11 @@ class Board {
 
   FillBoard() {
     for (let i = 0; i < this.height; i++) {
-      this.board[i] = new Array(this.height);
+      this.board[i] = new Array(this.width);
     }
 
     for (let i = 0; i < this.height; i++) {
-      for (let j = 0; j < this.height; j++) {
+      for (let j = 0; j < this.width; j++) {
         this.board[i][j] = "▮";
       }
     }

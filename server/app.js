@@ -3,7 +3,7 @@ let players = {};
 
 const Board = require("./board");
 const height = 10;
-const width = 10;
+const width = 15;
 const words = {
   fable: "Short story with animals",
   bat: "Winged creature",
