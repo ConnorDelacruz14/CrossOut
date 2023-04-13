@@ -6,18 +6,25 @@
   
   <script>
   export default {
+    props: {
+        board: {
+            type: Object,
+            required: true
+        }
+    },
     data() {
       return {
         gridSize: 40, // size of each square in the grid
-        grid: [], // 2D array representing the grid
+        grid: this.board.board, // 2D array representing the grid
         isDragging: false // flag to track when the user is dragging the mouse
       };
     },
     mounted() {
-      // initialize the grid with empty values
-      this.grid = new Array(10).fill(new Array(16).fill(null));
-      // draw the grid initially
-      this.drawGrid();
+        this.grid = new Array(10);
+        for (let i = 0; i < this.grid.length; i++) {
+            this.grid[i] = new Array(10).fill(null);
+        }
+        console.log("Board: ", this.board)
     },
     methods: {
       handleMouseDown(event) {
@@ -69,8 +76,6 @@
   };
   </script>
   
-  <style scoped>
-  canvas {
-    border: 1px solid black;
-  }
+  <style>
+
   </style>
